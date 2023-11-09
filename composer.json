@@ -1,7 +1,6 @@
 {
   "name": "killov/meta",
   "description": "Different wire formats, different data sources, single object model",
-  "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
     {
