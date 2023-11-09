@@ -29,6 +29,6 @@ interface XmlMetaInterface extends MetaInterface
 	 *
 	 * @return \DOMElement|void
 	 */
-	public static function toXml($object, $group = XmlElement::DEFAULT_GROUP, $filterOrXml, $xml = null, $el = null);
+	public static function toXml($object, $group = XmlElement::DEFAULT_GROUP, $filterOrXml = [], $xml = null, $el = null);
 
 }
