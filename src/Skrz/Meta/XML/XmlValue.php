@@ -12,6 +12,10 @@ final class XmlValue implements XmlAnnotationInterface
 	/** @var string */
 	public $group = XmlElement::DEFAULT_GROUP;
 
+
+	/** @var bool */
+	public $isCData = false;
+
 	/**
 	 * @return string
 	 */

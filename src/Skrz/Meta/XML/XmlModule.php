@@ -788,10 +788,19 @@ class XmlModule extends AbstractModule
 					if ($sevo->getStatement()) {
 						$toXmlWriter->addBody(Strings::indent($sevo->getStatement(), 2, "\t"));
 					}
-					$toXmlWriter->addBody("\t\t\$xml->text({$sevo->getExpression()});");
+                    if ($xmlValue->isCData) {
+                        $toXmlWriter->addBody("\t\t\$xml->writeCdata({$sevo->getExpression()});");
+                    } else {
+                        $toXmlWriter->addBody("\t\t\$xml->text({$sevo->getExpression()});");
+                    }
 
 				} elseif ($property->getType() instanceof ScalarType) {
-					$toXmlWriter->addBody("\t\t\$xml->text((string)\$object->{$property->getName()});");
+
+                    if ($xmlValue->isCData) {
+                        $toXmlWriter->addBody("\t\t\$xml->writeCdata((string)\$object->{$property->getName()});");
+                    } else {
+                        $toXmlWriter->addBody("\t\t\$xml->text((string)\$object->{$property->getName()});");
+                    }
 
 				} else {
 					throw new MetaException("Unsupported property type " . get_class($property->getType()) . ".");
