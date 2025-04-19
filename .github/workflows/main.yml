@@ -12,7 +12,7 @@ jobs:
       with:
         php_version: "8.4"
     - name: Prepare
-      run: php tests/prepare.php
+      run: php test/Skrz/Meta/prepare.php
     - name: autoload
       run: composer dump-autoload
     - name: Tests
