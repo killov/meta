@@ -19,24 +19,11 @@ use Skrz\Meta\Fixtures\JSON\Meta\ClassWithNoPropertyMeta;
 use Skrz\Meta\Fixtures\JSON\Meta\ClassWithPublicPropertyMeta;
 use Symfony\Component\Finder\Finder;
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 class JsonModuleTest extends TestCase
 {
 
-	public static function setUpBeforeClass(): void
-	{
-		$files = array_map(function (\SplFileInfo $file) {
-			return $file->getPathname();
-		}, iterator_to_array(
-			(new Finder())
-				->in(__DIR__ . "/Fixtures/JSON")
-				->name("ClassWith*.php")
-				->notName("*Meta*")
-				->files()
-		));
-
-		$spec = new JsonMetaSpec();
-		$spec->processFiles($files);
-	}
 
 	public function testClassWithNoPropertyFromJson()
 	{

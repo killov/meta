@@ -143,8 +143,8 @@ class XmlModule extends AbstractModule
 		$fromXml = $class->addMethod("fromXml");
 		$fromXml->setStatic(true);
 		$fromXml->addParameter("xml");
-		$fromXml->addParameter("group")->setOptional(true);
-		$fromXml->addParameter("object")->setOptional(true);
+		$fromXml->addParameter("group")->setDefaultValue(null);
+		$fromXml->addParameter("object")->setDefaultValue(null);
 		$fromXml
 			->addComment("Creates \\{$type->getName()} from XML")
 			->addComment("")
@@ -179,10 +179,10 @@ class XmlModule extends AbstractModule
 
 		$fromXmlReader = $class->addMethod("fromXmlReader");
 		$fromXmlReader->setStatic(true)->setVisibility("private");
-		$fromXmlReader->addParameter("xml")->setTypeHint("\\XMLReader");
+		$fromXmlReader->addParameter("xml")->setType("\\XMLReader");
 		$fromXmlReader->addParameter("group");
 		$fromXmlReader->addParameter("id");
-		$fromXmlReader->addParameter("object")->setTypeHint($type->getName());
+		$fromXmlReader->addParameter("object")->setType($type->getName());
 
 		$fromXmlReader
 			->addBody("if (\$xml->nodeType !== \\XMLReader::ELEMENT) {")
@@ -413,7 +413,7 @@ class XmlModule extends AbstractModule
 
 		$xmlReadValue = $class->addMethod("xmlReadValue");
 		$xmlReadValue->setStatic(true)->setVisibility("private");
-		$xmlReadValue->addParameter("xml")->setTypeHint("\\XMLReader");
+		$xmlReadValue->addParameter("xml")->setType("\\XMLReader");
 
 		$xmlReadValue
 			->addBody("\$value = null;")
@@ -431,10 +431,10 @@ class XmlModule extends AbstractModule
 
 		$fromXmlElement = $class->addMethod("fromXmlElement");
 		$fromXmlElement->setStatic(true)->setVisibility("private");
-		$fromXmlElement->addParameter("xml")->setTypeHint("\\DOMElement");
+		$fromXmlElement->addParameter("xml")->setType("\\DOMElement");
 		$fromXmlElement->addParameter("group");
 		$fromXmlElement->addParameter("id");
-		$fromXmlElement->addParameter("object")->setTypeHint($type->getName());
+		$fromXmlElement->addParameter("object")->setType($type->getName());
 
 		foreach ($type->getProperties() as $property) {
 			foreach ($property->getAnnotations("Skrz\\Meta\\XML\\XmlAttribute") as $xmlAttribute) {
@@ -620,10 +620,10 @@ class XmlModule extends AbstractModule
 		$toXml = $class->addMethod("toXml");
 		$toXml->setStatic(true);
 		$toXml->addParameter("object");
-		$toXml->addParameter("group")->setOptional(true);
-		$toXml->addParameter("filterOrXml")->setOptional(true)->setDefaultValue([]);
-		$toXml->addParameter("xml")->setOptional(true);
-		$toXml->addParameter("el")->setOptional(true);
+		$toXml->addParameter("group")->setDefaultValue(null);
+		$toXml->addParameter("filterOrXml")->setDefaultValue([]);
+		$toXml->addParameter("xml")->setDefaultValue(null);
+		$toXml->addParameter("el")->setDefaultValue(null);
 		$toXml
 			->addComment("Serializes \\{$type->getName()} to XML")
 			->addComment("")
@@ -693,11 +693,11 @@ class XmlModule extends AbstractModule
 
 		$toXmlWriter = $class->addMethod("toXmlWriter");
 		$toXmlWriter->setStatic(true)->setVisibility("private");
-		$toXmlWriter->addParameter("object")->setTypeHint($type->getName());
+		$toXmlWriter->addParameter("object")->setType($type->getName());
 		$toXmlWriter->addParameter("group");
 		$toXmlWriter->addParameter("id");
 		$toXmlWriter->addParameter("filter");
-		$toXmlWriter->addParameter("xml")->setTypeHint("\\XMLWriter");
+		$toXmlWriter->addParameter("xml")->setType("\\XMLWriter");
 
 		$toXmlWriter->addBody("if (count({$stackAlias}::\$objects) < 2) {");
 
@@ -1052,12 +1052,12 @@ class XmlModule extends AbstractModule
 
 		$toXmlElement = $class->addMethod("toXmlElement");
 		$toXmlElement->setStatic(true)->setVisibility("private");
-		$toXmlElement->addParameter("object")->setTypeHint($type->getName());
+		$toXmlElement->addParameter("object")->setType($type->getName());
 		$toXmlElement->addParameter("group");
 		$toXmlElement->addParameter("id");
 		$toXmlElement->addParameter("filter");
-		$toXmlElement->addParameter("xml")->setTypeHint("\\DOMDocument");
-		$toXmlElement->addParameter("el")->setTypeHint("\\DOMElement")->setOptional(true);
+		$toXmlElement->addParameter("xml")->setType("\\DOMDocument");
+		$toXmlElement->addParameter("el")->setType("\\DOMElement")->setDefaultValue(null);
 
 		foreach ($type->getAnnotations("Skrz\\Meta\\XML\\XmlElement") as $xmlElement) {
 			/** @var XmlElement $xmlElement */

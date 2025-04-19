@@ -28,7 +28,7 @@ class BaseModule extends AbstractModule
 		// extend base class
 		$namespace->addUse($type->getName(), null);
 		$typeAlias = \Nette\PhpGenerator\Helpers::extractShortName($type->getName());
-		$class->addExtend($type->getName());
+		$class->setExtends($type->getName());
 
 		$class
 			->addComment("Meta class for \\{$type->getName()}")
@@ -160,8 +160,8 @@ class BaseModule extends AbstractModule
 			->addComment("")
 			->addComment("@return string|void");
 		$hash->addParameter("object");
-		$hash->addParameter("algoOrCtx")->setDefaultValue("md5")->setOptional(true);
-		$hash->addParameter("raw")->setDefaultValue(false)->setOptional(true);
+		$hash->addParameter("algoOrCtx")->setDefaultValue("md5");
+		$hash->addParameter("raw")->setDefaultValue(false);
 
 		$hash
 			->addBody("if (is_string(\$algoOrCtx)) {")

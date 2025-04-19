@@ -1,8 +1,9 @@
 <?php
 namespace Skrz\Meta;
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 use PHPUnit\Framework\TestCase;
-use Skrz\Meta\Fixtures\Base\BaseMetaSpec;
 use Skrz\Meta\Fixtures\Base\ClassToBeHashed;
 use Skrz\Meta\Fixtures\Base\Meta\ClassToBeHashedMeta;
 use Skrz\Meta\Fixtures\Base\Meta\ClassWithDefaultPropertiesMeta;
@@ -10,27 +11,9 @@ use Skrz\Meta\Fixtures\Base\Meta\ClassWithNothingMeta;
 use Skrz\Meta\Fixtures\Base\Meta\ClassWithOneArgConstructorMeta;
 use Skrz\Meta\Fixtures\Base\Meta\ClassWithTwoArgConstructorMeta;
 use Skrz\Meta\Fixtures\Base\Meta\ClassWithZeroArgConstructorMeta;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 class BaseModuleTest extends TestCase
 {
-
-	public static function setUpBeforeClass(): void
-	{
-		$files = array_map(function (SplFileInfo $file) {
-			return $file->getPathname();
-		}, iterator_to_array(
-			(new Finder())
-				->in(__DIR__ . "/Fixtures/Base")
-				->name("Class*.php")
-				->notName("*Meta*")
-				->files()
-		));
-
-		$spec = new BaseMetaSpec();
-		$spec->processFiles($files);
-	}
 
 	public function testClassThatShouldBeIgnored()
 	{

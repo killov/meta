@@ -1,6 +1,8 @@
 <?php
 namespace Skrz\Meta;
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 use PHPUnit\Framework\TestCase;
 use Skrz\Meta\Fixtures\Constants\ConstantsMetaSpec;
 use Skrz\Meta\Fixtures\Constants\Meta\ClassWithPropertiesMeta;
@@ -9,21 +11,6 @@ use Symfony\Component\Finder\Finder;
 class ConstantsModuleTest extends TestCase
 {
 
-	public static function setUpBeforeClass(): void
-	{
-		$files = array_map(function (\SplFileInfo $file) {
-			return $file->getPathname();
-		}, iterator_to_array(
-			(new Finder())
-				->in(__DIR__ . "/Fixtures/Constants")
-				->name("Class*.php")
-				->notName("*Meta*")
-				->files()
-		));
-
-		$spec = new ConstantsMetaSpec();
-		$spec->processFiles($files);
-	}
 
 	public function testClassNameConstant()
 	{

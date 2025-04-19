@@ -33,6 +33,11 @@
       "src/annotations.php"
     ]
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Skrz\\Meta\\Fixtures\\": "test/Skrz/Meta/Fixtures/"
+    }
+  },
   "bin": [
     "bin/meta.php"
   ]

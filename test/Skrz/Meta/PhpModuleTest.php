@@ -1,6 +1,8 @@
 <?php
 namespace Skrz\Meta;
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 use PHPUnit\Framework\TestCase;
 use Skrz\Meta\Fields\Fields;
 use Skrz\Meta\Fixtures\PHP\ArrayCollection;
@@ -34,23 +36,6 @@ use Symfony\Component\Finder\Finder;
 
 class PhpModuleTest extends TestCase
 {
-
-	public static function setUpBeforeClass(): void
-	{
-		$files = array_map(function (\SplFileInfo $file) {
-			return $file->getPathname();
-		}, iterator_to_array(
-			(new Finder())
-				->in(__DIR__ . "/Fixtures/PHP")
-				->name("ClassWith*.php")
-				->notName("*Meta*")
-				->notName("ClassWithNonTransientPrivateProperty.php")
-				->files()
-		));
-
-		$spec = new PhpMetaSpec();
-		$spec->processFiles($files);
-	}
 
 	/**
 	 * @expectedException \Skrz\Meta\MetaException

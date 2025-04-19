@@ -1,6 +1,8 @@
 <?php
 namespace Skrz\Meta;
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 use PHPUnit\Framework\TestCase;
 use Skrz\Meta\Fixtures\XML\Image;
 use Skrz\Meta\Fixtures\XML\Meta\ImageMeta;
@@ -14,22 +16,6 @@ use Symfony\Component\Finder\Finder;
 
 class XmlModuleTest extends TestCase
 {
-
-	public static function setUpBeforeClass(): void
-	{
-		$files = array_map(function (\SplFileInfo $file) {
-			return $file->getPathname();
-		}, iterator_to_array(
-			(new Finder())
-				->in(__DIR__ . "/Fixtures/XML")
-				->name("*.php")
-				->notName("*Meta*")
-				->files()
-		));
-
-		$spec = new XmlMetaSpec();
-		$spec->processFiles($files);
-	}
 
 	public function fromXmlDataProvider()
 	{
